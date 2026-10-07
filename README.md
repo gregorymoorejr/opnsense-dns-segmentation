@@ -9,24 +9,19 @@ This project details the design, implementation, and hardening of my home networ
 
 ## Architecture & Traffic Flow
 
-[ Internet ]
-│
-▼
-[ OPNsense Firewall ] (VLAN 90 - Infrastructure)
-│
-├──> [ Management Subnet (VLAN 100) ] ──> [ SysLinuxOS / Surface Pro 3 Console ]
-├──> [ Monitoring Stack (VLAN 110) ] ───> [ Zabbix / Dell Inspiron 5566 ]
-├──> [ SOC / SIEM (VLAN 120) ] ─────────> [ Wazuh / Dell Precision 5530 ]
-├──> [ Storage (VLAN 130) ] ────────────> [ OpenMediaVault / Dell Inspiron 5568 ]
-├──> [ App Servers (VLAN 80) ] ──────────> [ Proxmox VE / Dell Precision 7530 ]
-├──> [ Trusted / Client (VLAN 150) ]
-├──> [ Home Office / Guest (VLAN 160) ]
-├──> [ Entertainment (VLAN 140) ]
-└──> [ IoT Devices (VLAN 170) ]
+<div align="center">
+    <img src="images/Moestylez-RMESOE_Network_Diagram.png" alt="Network Diagram" width="700">
+</div>
 
 ### Core Hardware & Infrastructure Layer (VLAN 90)
 * **Firewall & Routing:** OPNsense core routing engine.
-* **Network Backbone:** Netgear Orbi Pro WiFi mesh system, MoCA adapters, and a Grandstream GWN7721 managed switch.
+* **Network Backbone:** Grandstream GWN7721 managed switch, Netgear Orbi Pro WiFi mesh system, MoCA adapters, and CAT6 ethernet cabling.
+
+### Custom Hardware Edge Appliance (OPNsense Firewall)
+* **Host Chassis:** Lenovo ThinkCentre M800 SFF running **OPNsense**
+* **Memory:** 24GB DDR4 RAM
+* **Storage:** 512GB SSD
+* **Interfaces:** Dual-port 2.5GbE PCIe NIC (WAN & trunking) + Quad-port 1GbE PCIe NIC (dedicated hardware segments/passthroughs).
 
 ---
 
@@ -58,5 +53,7 @@ This project details the design, implementation, and hardening of my home networ
 * **Zenarmor Integration:** Deployment of Layer 7 deep packet inspection (DPI) and application-layer telemetry on OPNsense.
 * **CrowdSec Integration:** Implementation of collaborative security agents and firewall bouncers for active threat intelligence.
 * **Q-Feeds Integration:** Incorporation of custom threat intelligence feeds to tighten perimeter block policies.
+
+---
 
 <a href="https://github.com/gregorymoorejr">← Back to Main Portfolio</a>
