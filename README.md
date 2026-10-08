@@ -14,14 +14,38 @@ This project details the design, implementation, and hardening of my home networ
 </div>
 
 ### Core Hardware & Infrastructure Layer (VLAN 90)
-* **Firewall & Routing:** OPNsense core routing engine.
-* **Network Backbone:** Grandstream GWN7721 managed switch, Netgear Orbi Pro WiFi mesh system, MoCA adapters, and CAT6 ethernet cabling.
+* **Firewall & Routing Engine:** Custom Lenovo M800 SFF running **OPNsense**
+* **Switching Core:** **Grandstream GWN7721 Managed Switch**, configured for **802.1Q VLAN trunking** and strict port-based tag enforcement.
+* **Wireless Access Layer:** **Netgear Orbi Pro WiFi Mesh System**, utilizing **Multi-SSID mapping** to bridge wireless clients directly into dedicated OPNsense VLAN zones (Trusted, Guest, and IoT).
+* **Physical Backbone:** MoCA adapters utilizing coaxial runs and CAT6 Ethernet cabling to maintain high-throughput wired stability across physical domains.
 
 ### Custom Hardware Edge Appliance (OPNsense Firewall)
 * **Host Chassis:** Lenovo ThinkCentre M800 SFF running **OPNsense**
 * **Memory:** 24GB DDR4 RAM
 * **Storage:** 512GB SSD
 * **Interfaces:** Dual-port 2.5GbE PCIe NIC (WAN & trunking) + Quad-port 1GbE PCIe NIC (dedicated hardware segments/passthroughs).
+
+---
+
+## Configuration & Verification Snapshots
+
+### 1. OPNsense Inter-VLAN Firewall Rules
+Enforcing least-privilege access by explicitly denying unauthorized east-west traffic, RFC1918 block rule, between segmented zones (e.g., restricting IoT and Guest subnets). Specificly allowed traffic is placed above the RFC1918 block rule. 
+<div align="center">
+    <img src="images/opnsense-firewall-rules.png" alt="OPNsense Firewall Rules" width="700">
+</div>
+
+### 2. Grandstream Switch 802.1Q VLAN Enforcement
+The Grandstream GWN7721 managed switch enforces strict Layer 2 isolation, ensuring tagged frames from OPNsense remain properly separated across physical switch ports.
+<div align="center">
+    <img src="images/grandstream-vlan-config.png" alt="Grandstream VLAN Configuration" width="700">
+</div>
+
+### 3. Netgear Orbi Pro Multi-SSID VLAN Mapping
+Wireless networks are segregated at the access point level, mapping distinct SSIDs directly to their respective OPNsense VLAN tags (e.g., Trusted on VLAN 150, IoT on VLAN 170).
+<div align="center">
+    <img src="images/orbi-pro-ssid-mapping.png" alt="Orbi Pro Multi-SSID Mapping" width="700">
+</div>
 
 ---
 
