@@ -1,0 +1,4 @@
+# Global site overrides
+kramdown:
+  parse_block_html: true
+  
