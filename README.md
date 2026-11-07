@@ -81,3 +81,9 @@ Wireless networks are segregated at the access point level, mapping distinct SSI
 ---
 
 <a href="https://github.com/gregorymoorejr">← Back to Main Portfolio</a>
+
+<style>
+  footer, .site-footer, .site-footer-credits {
+    display: none !important;
+  }
+</style>
